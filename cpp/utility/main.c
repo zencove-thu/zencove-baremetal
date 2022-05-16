@@ -70,11 +70,13 @@ void print_tlb() {
     for (uint8_t i = 0; i < TLB_COUNT; ++i) {
         uint32_t entry_hi, entry_lo_1, entry_lo_2;
         asm volatile(
+            ".set\tmips32\n"
             "mtc0 %3, $0, 0\n"
             "tlbr\n"
             "mfc0 %0, $10, 0\n"
             "mfc0 %1, $2, 0\n"
             "mfc0 %2, $3, 0\n"
+            ".set\tmips0\n"
             :"=r"(entry_hi), "=r"(entry_lo_1), "=r"(entry_lo_2)
             :"r"(i)
         );

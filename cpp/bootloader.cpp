@@ -18,11 +18,10 @@ extern byte_t _mem_start, _mem_end;
 extern byte_t _mem_avail_start, _mem_avail_end;
 
 void toggle_kseg0_cacheability(bool cacheable) {
-    uint32_t cp0_config0;
-    asm volatile("mfc0 %0, $16, 0;" :"=r"(cp0_config0));
+    uint32_t cp0_config0 = read_c0_config();
     cp0_config0 &= ~0x7; // remove last 3 bits (K0)
     cp0_config0 |= cacheable ? 0x3 : 0x2; // set last 3 bits (K0)
-    asm volatile("mtc0 %0, $16, 0;" ::"r"(cp0_config0));
+    write_c0_config(cp0_config0);
 }
 
 void boot_addr(void *addr) {
