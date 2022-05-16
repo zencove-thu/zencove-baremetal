@@ -109,6 +109,7 @@ _exception_entry:
 	sw $v0,  44($sp)
 	sw $at,  40($sp)
     # save cp0
+	.set mips32
     mfc0 $t1, $15, 1    # EBase
     sw   $t1, 32($sp)
     mfc0 $t1, $8,  0    # BadVAddr
@@ -119,6 +120,7 @@ _exception_entry:
     sw   $t1, 20($sp)
     mfc0 $t1, $14, 0    # EPC
     sw   $t1, 16($sp)
+	.set mips0
 
     move $a0, $sp
     move $a1, $k0
