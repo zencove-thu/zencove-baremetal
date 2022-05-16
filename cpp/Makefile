@@ -16,7 +16,13 @@ BASES=$(SRCS:.cpp=.base.bin)
 EXTS=$(SRCS:.cpp=.ext.bin)
 EXTS=$(SRCS:.cpp=.s)
 
-COMP_FLGAS=-nostdinc -nostdlib -ffunction-sections -fdata-sections -ffreestanding -Wall -mxgot -fno-builtin -fno-PIC -fno-PIE -mno-abicalls -g -EL -msoft-float -mips1 -Os -I include -include common.h -include bootstrap.h
+COMP_FLGAS=-nostdinc -nostdlib \
+-ffunction-sections -fdata-sections -ffreestanding \
+-Wall -mxgot \
+-fno-builtin -fno-PIC -fno-PIE \
+-mno-abicalls -g -EL \
+-msoft-float -mips3 -mno-llsc -mno-branch-likely \
+-Os -I include -include common.h -include bootstrap.h
 CXXFLAGS=$(COMP_FLGAS) -std=c++11
 CFLAGS=$(COMP_FLGAS) -Wno-implicit-function-declaration
 
